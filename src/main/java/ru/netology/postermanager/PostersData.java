@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 
 public class PostersData {
 
-    private int filmNumber; // просто чтоб был наглгляднее вывод последних добавленных фильмов
+    private int filmId;
     private String filmTitle;
     private String filmTipe;
+
+    public int getFilmId() {
+        return filmId;
+    }
 }

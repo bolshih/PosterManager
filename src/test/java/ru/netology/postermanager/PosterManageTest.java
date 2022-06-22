@@ -2,9 +2,15 @@ package ru.netology.postermanager;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
 public class PosterManageTest {
+
+    PosterRepository repo = Mockito.mock(PosterRepository.class);
+    PosterManager manager = new PosterManager(repo);
+
         PostersData poster1 = new PostersData(1, "Бладшот", "боевик");
         PostersData poster2 = new PostersData(2, "Вперёд", "мультфильм");
         PostersData poster3 = new PostersData(3, "Джентельмены", "боевик");
@@ -21,22 +27,11 @@ public class PosterManageTest {
     @Test
 
     public void shoulAddPoster(){
-        PosterManager poster = new PosterManager();
-        poster.addPoster(poster1);
-        poster.addPoster(poster2);
-        poster.addPoster(poster3);
-        poster.addPoster(poster4);
-        poster.addPoster(poster5);
-        poster.addPoster(poster6);
-        poster.addPoster(poster7);
-        poster.addPoster(poster8);
-        poster.addPoster(poster9);
-        poster.addPoster(poster10);
-        poster.addPoster(poster11);
-
+        PostersData[] posters ={poster1, poster2, poster3, poster4, poster5, poster6, poster7, poster8, poster9, poster10, poster11};
+        doReturn(posters).when(repo).getPosters();
 
         PostersData[] expected = {poster1, poster2, poster3, poster4, poster5, poster6, poster7, poster8, poster9, poster10, poster11};
-        PostersData[] actual = poster.getPosters();
+        PostersData[] actual = manager.getPosters();
 
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -44,40 +39,23 @@ public class PosterManageTest {
     @Test
 
     public void shouldFindLast(){
-        PosterManager poster = new PosterManager();
-        poster.addPoster(poster1);
-        poster.addPoster(poster2);
-        poster.addPoster(poster3);
-        poster.addPoster(poster4);
-        poster.addPoster(poster5);
-        poster.addPoster(poster6);
-        poster.addPoster(poster7);
-        poster.addPoster(poster8);
-        poster.addPoster(poster9);
-        poster.addPoster(poster10);
-        poster.addPoster(poster11);
+        PostersData[] posters ={poster1, poster2, poster3, poster4, poster5, poster6, poster7, poster8, poster9, poster10, poster11};
+        doReturn(posters).when(repo).getPosters();
 
         PostersData[] expected = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
-        PostersData [] actual = poster.findLast();
+        PostersData[] actual = manager.findLast();
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
 
     public void shouldFindLast5(){
-        PosterManager poster = new PosterManager();
-        poster.addPoster(poster1);
-        poster.addPoster(poster2);
-        poster.addPoster(poster3);
-        poster.addPoster(poster4);
-        poster.addPoster(poster5);
-        poster.addPoster(poster6);
-        poster.addPoster(poster7);
-        poster.addPoster(poster8);
-        poster.addPoster(poster9);
-        poster.addPoster(poster10);
-        poster.addPoster(poster11);
+        PostersData[] posters ={poster1, poster2, poster3, poster4, poster5, poster6, poster7, poster8, poster9, poster10, poster11};
+        doReturn(posters).when(repo).getPosters();
 
         PostersData[] expected = {poster11, poster10, poster9, poster8, poster7};
-        PostersData [] actual = poster.findLast(5);
+        PostersData[] actual = manager.findLast(5);
+        Assertions.assertArrayEquals(expected, actual);
     }
+
 }
